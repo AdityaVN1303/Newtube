@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import Body from './components/Body'
+import Header from './components/Header'
+import Sidebar from './components/Sidebar'
 
 function App() {
+
+  const [mode, setMode] = useState('dark');
+
+  const handleClick = ()=>{
+    if (mode === 'dark') {
+      setMode('light');
+    }
+    else{
+      setMode('dark');
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`App duration-500 ${mode === 'dark' ? "text-white bg-black" : "text-black bg-white"}  overflow-x-hidden`}>
+      <>
+      <Header clicked={handleClick} mode={mode}/>
+      <div className="brothers grid grid-cols-7 pt-20">
+      <Sidebar/>
+      <Body/>
+      </div>
+      </>
     </div>
   );
 }
