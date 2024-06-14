@@ -17,7 +17,7 @@ function App() {
   }
 
   return (
-    <div className={`App duration-500 ${mode === 'dark' ? "text-white bg-black" : "text-black bg-white"}  overflow-x-hidden`}>
+    <div className={`App duration-500 font-abc ${mode === 'dark' ? "text-white bg-black" : "text-black bg-white"}  overflow-x-hidden`}>
       <>
       <Header clicked={handleClick} mode={mode}/>
       <div className="brothers grid grid-cols-7 pt-20">

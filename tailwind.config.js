@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      abc: ["Reddit Sans Condensed", "sans-serif"]
+    }
   },
   plugins: [
     require('tailwind-scrollbar-hide')
