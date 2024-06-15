@@ -1,24 +1,30 @@
 import axios from 'axios';
 import React, {useState } from 'react'
 import { YT_API_KEY, YT_CATEGORY_URL } from '../utils/constants';
-import { useDispatch } from 'react-redux';
-import { setVideos } from '../utils/videoSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoading, setToken, setVideos } from '../utils/videoSlice';
+import { keywords } from '../utils/constants';
 
 const Filters = () => {
 
   const dispatch = useDispatch();
+  const token = useSelector((store)=>store.video.nextPageToken);
 
   const fetchData = async (item , i)=>{
+    dispatch(setLoading(true));
     const data = await axios.get(YT_CATEGORY_URL , {
       params : {
         part : 'snippet', 
         maxResults : 25,
         type : 'video',
         q : item, 
-        key : YT_API_KEY
+        key : YT_API_KEY,
+        pageToken : token
       }
     })
     dispatch(setVideos(data.data.items));
+    dispatch(setToken(data.data.nextPageToken));
+    dispatch(setLoading(false));
     // console.log(data.data.items);
     
   }
@@ -30,29 +36,7 @@ const handleClick = (item , i)=>{
 
 }
 
-  
-
   const [activeElement, setActiveElement] = useState("All")
-
-  const keywords = [
-    'All',
-    'React js',
-    'Angular js',
-    'React Native',
-    'use of API',
-    'Redux',
-    'Music',
-    'Algorithm Art ',
-    'Guitar',
-    'Bengali Songs',
-    'Coding',
-    'Cricket',
-    'Football',
-    'Real Madrid',
-    'Gatsby',
-    'Poor Coder',
-    'Shwetabh',
- ]
 
   return (
     <div className="filters w-full flex space-x-1 m-2 overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide ">
