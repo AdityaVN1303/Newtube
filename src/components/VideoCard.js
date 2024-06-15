@@ -54,7 +54,7 @@ const VideoCard = ({data , id}) => {
   
 
   return (
-    <div className="card m-2 cursor-pointer ">
+    <div className="card m-2 cursor-pointer">
         <div className="relative">
         <img src={data?.thumbnails?.medium?.url} alt="coverImg" className='rounded-xl w-full' />
         <div className="time bg-black text-white p-1 px-3 absolute bottom-0 right-0">{time}</div>

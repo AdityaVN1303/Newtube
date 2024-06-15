@@ -8,7 +8,6 @@ import { setVideos } from '../utils/videoSlice'
 
 const Body = () => {
 
-  // const [videos, setVideos] = useState([]);
   const dispatch = useDispatch();
   const videos = useSelector((store)=>store.video.videos);
 
@@ -40,7 +39,7 @@ const Body = () => {
           {
             videos && 
             videos.map((item)=>{
-              return <VideoCard data={item?.snippet} id={item?.id} key={item?.id}/>
+              return <VideoCard data={item?.snippet} id={item?.id?.videoId ? item?.id?.videoId : item?.id} key={item?.id}/>
             })
           }
 
