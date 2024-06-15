@@ -1,11 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Body from './components/Body'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
 
   const [mode, setMode] = useState('dark');
+  const navigate = useNavigate();
+
+  const user = useSelector((store)=>store.auth.accessToken);
+
+  useEffect(() => {
+    if(!user){
+      navigate('/auth');
+    }
+  }, [user , navigate])
+  
 
   const handleClick = ()=>{
     if (mode === 'dark') {
