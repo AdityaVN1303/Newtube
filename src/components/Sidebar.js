@@ -17,6 +17,7 @@ const Sidebar = () => {
   const handleLogout = async ()=>{
     try {
       await auth.signOut();
+      localStorage.removeItem('token');
       navigate('/auth');
       console.log("User logged out successfully");
     } catch (error) {

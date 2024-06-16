@@ -16,6 +16,8 @@ const LoginScreen = () => {
       const result = await signInWithPopup(auth , provider);
       // console.log(result.user);
       dispatch(setUser(result.user));
+      window.localStorage.setItem('token' , result.user.accessToken);
+      
       navigate('/');
       
     } catch (error) {

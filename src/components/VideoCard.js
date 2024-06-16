@@ -5,6 +5,8 @@ import axios from 'axios';
 import { YT_API_KEY, YT_CHANNEL_URL, YT_DEFAULT_URL} from '../utils/constants';
 import moment from 'moment';
 import numeral from 'numeral';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { Link } from 'react-router-dom';
 
 const VideoCard = ({data , id}) => {
 
@@ -54,9 +56,10 @@ const VideoCard = ({data , id}) => {
   
 
   return (
-    <div className="card m-2 cursor-pointer">
+    <div  className="card m-2 cursor-pointer">
+        <Link to={`./watch/${id}`}>
         <div className="relative">
-        <img src={data?.thumbnails?.medium?.url} alt="coverImg" className='rounded-xl w-full' />
+        <LazyLoadImage alt='img-banner' src={data?.thumbnails?.medium?.url} className='rounded-xl w-full'  />
         <div className="time bg-black text-white p-1 px-3 absolute bottom-0 right-0">{time}</div>
         </div>
         <div className="data mx-2">
@@ -66,10 +69,11 @@ const VideoCard = ({data , id}) => {
           <div className='flex space-x-1 items-center'><GoDotFill/> <p>{moment(data?.publishedAt).fromNow()}</p></div>
         </div>
         <div className="channel flex justify-start items-center space-x-2 my-2">
-          <img src={channelImg} alt="logo" className='w-7 h-7 object-cover rounded-full' />
+          <LazyLoadImage alt='img-banner' src={channelImg} className='w-7 h-7 object-cover rounded-full'  />
           <p className='text-blue-600'>{data?.channelTitle}</p>
         </div>
         </div>
+        </Link>
     </div>
   )
 }

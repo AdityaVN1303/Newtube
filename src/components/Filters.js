@@ -26,7 +26,6 @@ const Filters = () => {
     dispatch(setToken(data.data.nextPageToken));
     dispatch(setLoading(false));
     // console.log(data.data.items);
-    
   }
 
 const handleClick = (item , i)=>{

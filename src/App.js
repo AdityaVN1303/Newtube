@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import Body from './components/Body'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 function App() {
 
   const [mode, setMode] = useState('dark');
   const navigate = useNavigate();
 
-  const user = useSelector((store)=>store.auth.accessToken);
+  // const user = useSelector((store)=>store.auth.accessToken);
+  const user = localStorage.getItem('token');
 
   useEffect(() => {
     if(!user){
@@ -34,7 +34,7 @@ function App() {
       <Header clicked={handleClick} mode={mode}/>
       <div className="brothers grid grid-cols-7 pt-20">
       <Sidebar/>
-      <Body/>
+      <Outlet/>
       </div>
       </>
     </div>

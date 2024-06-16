@@ -8,11 +8,23 @@ import LoginScreen from './components/LoginScreen';
 import { Provider } from 'react-redux';
 import store from './utils/store';
 import Search from './components/Search';
+import Screen from './components/Screen';
+import Body from './components/Body';
 
 const router = createBrowserRouter([
   {
     path : "/",
-    element : <App/>
+    element : <App/>, 
+    children : [
+      {
+        path : "/",
+    element : <Body/>
+      } , 
+      {
+        path : "/watch/:id",
+    element : <Screen/>
+      }
+    ]
   } , 
   {
     path : "/auth",
@@ -21,6 +33,10 @@ const router = createBrowserRouter([
   {
     path : "/search",
     element : <Search/>
+  },
+  {
+    path : "/watch/:id",
+    element : <Screen/>
   }
 ])
 
