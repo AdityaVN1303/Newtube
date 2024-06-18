@@ -2,7 +2,7 @@ import React from 'react'
 import { auth , provider} from '../utils/firebase';
 import {signInWithPopup } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
-import {setUser} from '../utils/authSlice'
+import {setToken, setUser} from '../utils/authSlice'
 import { useNavigate } from 'react-router-dom';
 
 const LoginScreen = () => {
@@ -14,9 +14,11 @@ const LoginScreen = () => {
     try {
 
       const result = await signInWithPopup(auth , provider);
-      // console.log(result.user);
+      console.log( "important" +  result);
       dispatch(setUser(result.user));
+      dispatch(setToken(result._tokenResponse.oauthAccessToken));
       window.localStorage.setItem('token' , result.user.accessToken);
+
       
       navigate('/');
       

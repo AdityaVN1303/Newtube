@@ -13,7 +13,6 @@ const Body = () => {
   const dispatch = useDispatch();
   const videos = useSelector((store)=>store.video.videos);
   const token = useSelector((store)=>store.video.nextPageToken);
-  const loading = useSelector((store)=>store.video.loading);
 
   const fetchVideos = async ()=>{
     dispatch(setLoading(true));
@@ -23,7 +22,8 @@ const Body = () => {
         chart : 'mostPopular',
         maxResults : 25,
         key : YT_API_KEY,
-        pageToken : token
+        pageToken : token,
+        regionCode : 'IN'
       }
     });
     console.log(data.data);
@@ -59,7 +59,7 @@ const Body = () => {
         </p>
         } 
         >
-        { videos && !loading ?
+        { videos ?
          <div className="cards grid lg:grid-cols-3 grid-cols-1 mt-10">
           {
             videos.map((item)=>{

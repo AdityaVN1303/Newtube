@@ -8,16 +8,20 @@ import { MdSentimentDissatisfied } from "react-icons/md";
 import { IoMdExit } from "react-icons/io";
 import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
+import { setToken } from '../utils/authSlice';
+import { useDispatch } from 'react-redux';
 
 
 const Sidebar = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const handleLogout = async ()=>{
     try {
       await auth.signOut();
       localStorage.removeItem('token');
+      dispatch(setToken(""));
       navigate('/auth');
       console.log("User logged out successfully");
     } catch (error) {
