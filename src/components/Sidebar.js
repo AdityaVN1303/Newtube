@@ -10,6 +10,7 @@ import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
 import { setToken } from '../utils/authSlice';
 import { useDispatch } from 'react-redux';
+import { clearVideos} from '../utils/videoSlice';
 
 
 const Sidebar = () => {
@@ -22,6 +23,7 @@ const Sidebar = () => {
       await auth.signOut();
       localStorage.removeItem('token');
       dispatch(setToken(""));
+      dispatch(clearVideos())
       navigate('/auth');
       console.log("User logged out successfully");
     } catch (error) {

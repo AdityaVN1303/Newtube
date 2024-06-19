@@ -8,7 +8,7 @@ import numeral from 'numeral';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link } from 'react-router-dom';
 
-const VideoCard = ({data , id}) => {
+const VideoCard = ({data , id , channel}) => {
 
   const [views, setViews] = useState(null);
   const [duration, setDuration] = useState(null);
@@ -41,15 +41,19 @@ const VideoCard = ({data , id}) => {
   useEffect(() => {
     
     const getChannelStats = async ()=>{
-      const values = await axios.get(YT_CHANNEL_URL , {
-        params : {
-          part : 'snippet',
-          id : data.channelId,
-          key : YT_API_KEY
-        }
-      })
-      // console.log(values);
-      setchannelImg(values.data.items[0].snippet.thumbnails.medium.url);
+      try {
+        const values = await axios.get(YT_CHANNEL_URL , {
+          params : {
+            part : 'snippet',
+            id : data.channelId,
+            key : YT_API_KEY
+          }
+        })
+        // console.log(values);
+        setchannelImg(values.data.items[0].snippet.thumbnails.medium.url);
+      } catch (error) {
+        console.log(error);
+      }
     }
     getChannelStats();
   }, [id])
@@ -57,23 +61,23 @@ const VideoCard = ({data , id}) => {
 
   return (
     <div  className="card m-2 cursor-pointer">
-        <Link to={`./watch/${id}`}>
+        {data && <Link to={channel ? `/channel/${data?.channelId}` : `/watch/${id}`}>
         <div className="relative">
-        <LazyLoadImage alt='img-banner' src={data?.thumbnails?.medium?.url} className='rounded-xl w-full'  />
-        <div className="time bg-black text-white p-1 px-3 absolute bottom-0 right-0">{time}</div>
+        <LazyLoadImage title='img-banner' src={data?.thumbnails?.medium?.url} className={`${channel ? 'rounded-full h-56 w-56 mx-auto' : 'rounded-xl'} w-full`}  />
+        <div className="time bg-black text-white p-1 px-3 absolute bottom-0 right-0">{!channel && time}</div>
         </div>
         <div className="data mx-2">
         <h1 className='font-semibold text-xl'>{data?.title}</h1>
         <div className="info flex space-x-3 text-blue-600">
-          <div className='flex space-x-1 items-center'><IoEyeSharp/> <p>{numeral(views).format('0.a')} Views</p></div>
-          <div className='flex space-x-1 items-center'><GoDotFill/> <p>{moment(data?.publishedAt).fromNow()}</p></div>
+          {!channel && <div className='flex space-x-1 items-center'><IoEyeSharp/> <p>{numeral(views).format('0.a')} Views</p></div>}
+          {!channel && <div className='flex space-x-1 items-center'><GoDotFill/> <p>{moment(data?.publishedAt).fromNow()}</p></div>}
         </div>
         <div className="channel flex justify-start items-center space-x-2 my-2">
-          <LazyLoadImage alt='img-banner' src={channelImg} className='w-7 h-7 object-cover rounded-full'  />
+          <LazyLoadImage title='img-banner' src={channelImg} className='w-7 h-7 object-cover rounded-full'  />
           <p className='text-blue-600'>{data?.channelTitle}</p>
         </div>
         </div>
-        </Link>
+        </Link>}
     </div>
   )
 }

@@ -14,7 +14,7 @@ const Screen = () => {
 
     const [video, setVideo] = useState({});
     const [relatedVideos, setRelatedVideos] = useState([]);
-    const tag = video?.snippet?.tags[0];
+    const tag = video?.snippet?.tags?.[0];
 
     const {id} = useParams();
 

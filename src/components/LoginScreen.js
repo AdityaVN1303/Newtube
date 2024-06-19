@@ -14,7 +14,6 @@ const LoginScreen = () => {
     try {
 
       const result = await signInWithPopup(auth , provider);
-      console.log( "important" +  result);
       dispatch(setUser(result.user));
       dispatch(setToken(result._tokenResponse.oauthAccessToken));
       window.localStorage.setItem('token' , result.user.accessToken);

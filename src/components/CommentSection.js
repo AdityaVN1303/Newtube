@@ -38,7 +38,7 @@ const CommentSection = ({id}) => {
       <hr />
       {
         comment && comment.map((item)=>{
-          return <Comment data={item.snippet.topLevelComment.snippet}/>
+          return <Comment key={item?.id} data={item.snippet.topLevelComment.snippet}/>
         })
       }
     </div>

@@ -7,9 +7,9 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import LoginScreen from './components/LoginScreen';
 import { Provider } from 'react-redux';
 import store from './utils/store';
-import Search from './components/Search';
 import Screen from './components/Screen';
 import Body from './components/Body';
+import ChannelElement from './components/ChannelElement';
 
 const router = createBrowserRouter([
   {
@@ -23,21 +23,18 @@ const router = createBrowserRouter([
       {
         path : "/watch/:id",
     element : <Screen/>
-      }
+      },
+      {
+        path : "/channel/:id",
+        element : <ChannelElement/>
+      },
     ]
   } , 
   {
     path : "/auth",
     element : <LoginScreen/>
   } , 
-  {
-    path : "/search",
-    element : <Search/>
-  },
-  {
-    path : "/watch/:id",
-    element : <Screen/>
-  }
+
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

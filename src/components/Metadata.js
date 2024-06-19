@@ -21,12 +21,12 @@ const Metadata = ({data}) => {
         const value = await axios.get(YT_CHANNEL_URL , {
           params : {
             part : 'snippet,contentDetails,statistics',
-            id : data.snippet.channelId,
+            id : data?.snippet?.channelId,
             key : YT_API_KEY
           }
         })
-        console.log(value.data.items[0]);
-        setChannel(value.data.items[0]);
+        console.log(value?.data?.items?.[0]);
+        setChannel(value?.data?.items?.[0]);
       } catch (error) {
         console.log(error);
       }
@@ -67,7 +67,9 @@ const Metadata = ({data}) => {
 
   return (
     <div className="meta mt-5 space-y-1">
-      <div className="up">
+      {
+        data && <>
+        <div className="up">
         <h1 className='font-semibold text-xl mb-2'>{data?.snippet?.localized?.title}</h1>
         <div className="video-info flex justify-between items-center">
         <div className="info flex space-x-3 text-sm">
@@ -102,6 +104,8 @@ const Metadata = ({data}) => {
         </p>
       </div>
       <hr />
+        </>
+      }
     </div>
   )
 }

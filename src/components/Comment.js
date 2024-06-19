@@ -7,7 +7,9 @@ import parse from 'html-react-parser'
 const Comment = ({data}) => {
   return (
     <div className="comment">
-      <div className="comment flex justify-start items-center space-x-2 my-2">
+     {
+      data && <>
+       <div className="comment flex justify-start items-center space-x-2 my-2">
           <LazyLoadImage alt='img-banner' src={data?.authorProfileImageUrl} className='w-10 h-10 object-cover rounded-full'  />
           <div className="channelInfo text-sm">
           <div className="user-info space-x-2 flex justify-start items-center">
@@ -18,6 +20,8 @@ const Comment = ({data}) => {
           </div>
         </div>
         <hr />
+      </>
+     }
     </div>
   )
 }
